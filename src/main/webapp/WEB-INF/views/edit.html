@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="layout :: head">-->
+<head>
+</head>
+<body>
+<h1>Edit customer</h1>
+<p>
+<!--<div th:if="${message}">-->
+    <!--<span th:text="${message}"></span>-->
+<!--</div>-->
+</p>
+<p>
+    <a href="/customer">Back to customer list</a>
+</p>
+<form action="#" th:action="@{/customer/edit}" method="post" th:object="${customer}">
+    <fieldset>
+        <input type="hidden" th:field="*{id}" >
+        <legend>Customer information</legend>
+        <table>
+
+            <tr>
+                <td>First Name: </td>
+                <td><input type="text" th:value="${customer.getFirstName()}" th:field="*{firstName}"></td>
+            </tr>
+            <tr>
+                <td>Last Name: </td>
+                <td><input type="text" th:value="${customer.getLastName()}" th:field="*{lastName}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit"  value="Edit customer"></td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+</body>
+<!--<footer th:replace="layout :: footer"></footer>-->
+</html>

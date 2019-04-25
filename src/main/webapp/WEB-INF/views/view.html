@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="layout :: head">-->
+<head>
+</head>
+<body>
+<h1>Customer information </h1>
+<p>
+    <!--<div th:if="${message}">-->
+    <!--<span th:text="${message}"></span>-->
+    <!--</div>-->
+</p>
+<p>
+    <a href="/customer">Back to customer list</a>
+</p>
+<form  th:object="${customer}">
+    <fieldset>
+        <input type="hidden" th:field="*{id}" >
+        <legend>Customer information</legend>
+        <table>
+            <!--<tr>-->
+                <!--<td>Name: </td>-->
+                <!--<td th:text="${customer.getName()}"></td>-->
+            <!--</tr>-->
+            <tr>
+                <td>First Name: </td>
+                <td th:text="${customer.getFirstName()}"></td>
+
+            </tr>
+            <tr>
+                <td>Last Name: </td>
+                <td th:text="${customer.getLastName()}"></td>
+            </tr>
+            <tr>
+                <td></td>
+
+            </tr>
+        </table>
+    </fieldset>
+</form>
+</body>
+<!--<footer th:replace="layout :: footer"></footer>-->
+</html>
