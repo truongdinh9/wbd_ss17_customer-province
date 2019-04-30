@@ -28,6 +28,10 @@
                 <td><input type="text" th:value="${customer.getLastName()}" th:field="*{lastName}"></td>
             </tr>
             <tr>
+                <td>Province</td>
+                <td th:text="${customer.province.getName()}"></td>
+            </tr>
+            <tr>
                 <td></td>
                 <td><input type="submit"  value="Delete customer"></td>
             </tr>

@@ -1,41 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<!--<head th:replace="layout :: head">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <title>Create Customer</title>
 </head>
 <body>
-<h1>Create new customer</h1>
+<h3>Create Customer</h3>
 <p>
-<!--<div th:if="${message}">-->
-    <!--<span th:text="${message}"></span>-->
-<!--</div>-->
+    <a th:href="@{/customer}">Back to customers list</a>
 </p>
-<p>
-    <a href="/customer">Back to customer list</a>
-</p>
-<form action="#" th:action="@{/customer/save}" method="post" th:object="${customer}">
-    <fieldset>
-        <legend>Customer information</legend>
-        <table>
-            <!--<tr>-->
-                <!--<td>Name: </td>-->
-                <!--<td><input type="text"  th:field="*{id}"></td>-->
-            <!--</tr>-->
-            <tr>
-                <td>Fist Name: </td>
-                <td><input type="text"  th:field="*{firstName}"></td>
-            </tr>
-            <tr>
-                <td>Last Name: </td>
-                <td><input type="text" th:field="*{lastName}"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Create customer"></td>
-            </tr>
-        </table>
-    </fieldset>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/customer/save}" th:object="${customer}" method="post">
+    <table border="1px">
+        <tr>
+            <td>First name:</td>
+            <td><label>
+                <input type="text" th:field="*{firstName}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><label>
+                <input type="text" th:field="*{lastName}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td>Province <p> </p></td>
+            <td>
+                <select th:field="*{province}">
+                    <option th:each="p : ${provinces}" th:value="${p.id}" th:text="${p.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create customer"></td>
+        </tr>
+    </table>
 </form>
 </body>
-<!--<footer th:replace="layout :: footer"></footer>-->
 </html>

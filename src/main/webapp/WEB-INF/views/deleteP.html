@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="layout :: head">-->
+<head>
+</head>
+<body>
+<h1>Are you sure Delete this province?</h1>
+<p>
+<!--<div th:if="${message}">-->
+    <!--<span th:text="${message}"></span>-->
+<!--</div>-->
+</p>
+<p>
+    <a href="/province">Back to province list</a>
+</p>
+<form action="#" th:action="@{/province/remove}" method="post" th:object="${province}">
+    <fieldset>
+        <legend>province information</legend>
+        <input type="hidden" th:field="*{id}" >
+        <table>
+
+            <tr>
+                <td>First Name: </td>
+                <td><input type="text" th:value="${province.name}" th:field="*{name}"></td>
+            </tr>
+            <!--<tr>-->
+                <!--<td>Last Name: </td>-->
+                <!--<td><input type="text" th:value="${province.getLastName()}" th:field="*{lastName}"></td>-->
+            <!--</tr>-->
+            <tr>
+                <td></td>
+                <td><input type="submit"  value="Delete province"></td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+</body>
+<!--<footer th:replace="layout :: footer"></footer>-->
+</html>

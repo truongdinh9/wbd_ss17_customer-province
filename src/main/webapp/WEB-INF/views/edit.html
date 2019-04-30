@@ -31,6 +31,14 @@
                 <td></td>
                 <td><input type="submit"  value="Edit customer"></td>
             </tr>
+            <td>
+                <select name="province">
+                    <option th:each="p : ${provinces}"
+                            th:value="${p.id}"
+                            th:text="${p.name}"
+                            th:selected="(${p.id} == *{province.id})"></option>
+                </select>
+            </td>
         </table>
     </fieldset>
 </form>

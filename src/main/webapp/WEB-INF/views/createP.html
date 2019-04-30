@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="layout :: head">-->
+<head>
+</head>
+<body>
+<h1>Create new provinces</h1>
+<p>
+<!--<div th:if="${message}">-->
+    <!--<span th:text="${message}"></span>-->
+<!--</div>-->
+</p>
+<p>
+    <a href="/province">Back to provinces list</a>
+</p>
+<form action="#" th:action="@{/province/save}" method="post" th:object="${province}">
+    <fieldset>
+        <legend>provinces information</legend>
+        <table>
+            <!--<tr>-->
+                <!--<td>Name: </td>-->
+                <!--<td><input type="text"  th:field="*{id}"></td>-->
+            <!--</tr>-->
+            <tr>
+                <td>Fist Name: </td>
+                <td><input type="text"  th:field="*{name}"></td>
+            </tr>
+            <!--<tr>-->
+                <!--<td>Last Name: </td>-->
+                <!--<td><input type="text" th:field="*{lastName}"></td>-->
+            <!--</tr>-->
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Create provinces"></td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+</body>
+<!--<footer th:replace="layout :: footer"></footer>-->
+</html>

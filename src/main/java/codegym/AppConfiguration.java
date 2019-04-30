@@ -1,9 +1,12 @@
 package codegym;
 
+import codegym.fomatter.ProvinceFormatter;
+import codegym.model.Province;
 import codegym.repo.CustomerRepository;
-import codegym.repo.impl.CustomerRepositoryImpl;
 import codegym.service.CustomerService;
+import codegym.service.ProvinceService;
 import codegym.service.impl.CustomerServiecImpl;
+import codegym.service.impl.ProvinceServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +14,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -35,6 +41,8 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("codegym")
+@EnableJpaRepositories("codegym.repo")
+@EnableSpringDataWebSupport
 public class AppConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -43,15 +51,20 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+//    @Override
+//    public void addFormatters(FormatterRegistry registry) {
+//        registry.addFormatter(new ProvinceFormatter(applicationContext.getBean(ProvinceService.class)));
+//    }
 
-    @Bean
-    public CustomerRepository customerRepository(){
-        return new CustomerRepositoryImpl();
-    }
+
 
     @Bean
     public CustomerService customerService(){
         return new CustomerServiecImpl();
+    }
+    @Bean
+    public ProvinceService provinceService(){
+        return new ProvinceServiceImpl();
     }
 
 
@@ -91,7 +104,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"codegym.model"});
+        em.setPackagesToScan("codegym.model");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -103,7 +116,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:8806/test2");
+        dataSource.setUrl("jdbc:mysql://localhost:8806/cms");
         dataSource.setUsername( "root" );
         dataSource.setPassword( "123456" );
         return dataSource;

@@ -1,7 +1,9 @@
 package codegym.Controller;
 
 import codegym.model.Customer;
+import codegym.model.Province;
 import codegym.service.CustomerService;
+import codegym.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,22 +14,34 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-    @Autowired CustomerService customerService;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private ProvinceService provinceService;
+
+    @ModelAttribute("provinces")
+    public Iterable<Province> provinces(){
+        return provinceService.findAll();
+    }
     @GetMapping
-    public ModelAndView index(ModelAndView modelAndView){
+    public ModelAndView index(){
+        ModelAndView modelAndView;
         modelAndView=new ModelAndView("index","customers",customerService.findAll());
         return modelAndView;
     }
     @GetMapping("/create")
-    public String create(Model model) {
-        model.addAttribute("customer", new Customer());
-        return "create";
+    public ModelAndView create() {
+        ModelAndView modelAndView =new ModelAndView("create") ;
+        modelAndView.addObject("customer", new Customer());
+        return modelAndView;
     }
     @PostMapping("/save")
-    public ModelAndView save(Customer customer ){
+    public ModelAndView save(@ModelAttribute Customer customer,RedirectAttributes redirectAttributes){
         customerService.save(customer);
         ModelAndView modelAndView =new ModelAndView("redirect:/customer");
-        modelAndView.addObject("message","Saved customer");
+        redirectAttributes.addFlashAttribute("message","Saved customer");
         return modelAndView;
     }
 
@@ -39,11 +53,11 @@ public class CustomerController {
         return modelAndView;
     }
     @PostMapping("/edit")
-    public ModelAndView edit(Customer customer){
+    public ModelAndView edit(Customer customer, RedirectAttributes redirect){
         customerService.save(customer);
         ModelAndView modelAndView=new ModelAndView("redirect:/customer");
         modelAndView.addObject("customer", customer);
-        modelAndView.addObject("message","Edited customer successfully");
+        redirect.addFlashAttribute("message","Edited customer successfully");
         return modelAndView;
     }
     @GetMapping("/{id}/delete")

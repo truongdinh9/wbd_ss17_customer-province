@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="layout :: head">-->
+<head>
+</head>
+<body>
+<h1>province information </h1>
+<p>
+    <!--<div th:if="${message}">-->
+    <!--<span th:text="${message}"></span>-->
+    <!--</div>-->
+</p>
+<p>
+    <a href="/province">Back to province list</a>
+</p>
+<form>
+
+        <!--<input type="hidden" th:field="*{id}" >-->
+    <p th:text="'List customers of '+ ${province.getName()} +':'"></p>
+
+    <table border="1" >
+
+        <tr>
+            <th>Province</th>
+            <th>Fist Name</th>
+            <th>Last Name</th>
+        </tr>
+        <th:block th:each="customer:${customers}">
+            <tr>
+            <td th:text="${customer.province.getName()}"></td>
+            <td th:text="${customer.getFirstName()}"></td>
+            <td th:text="${customer.getLastName()}"></td>
+            </tr>
+        </th:block>
+    </table>
+
+                <!--<td th:text="${province.getName()}"></td>-->
+            <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+            <!--<tr>-->
+                <!--<td>First Name: </td>-->
+                <!--<td th:text="${province.getFirstName()}"></td>-->
+
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>Last Name: </td>-->
+                <!--<td th:text="${province.getName()}"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td></td>-->
+
+            <!--</tr>-->
+
+
+</form>
+</body>
+<!--<footer th:replace="layout :: footer"></footer>-->
+</html>
